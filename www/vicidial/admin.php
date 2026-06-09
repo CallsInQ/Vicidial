@@ -2926,7 +2926,7 @@ if ( ($auth > 0) or ($reports_auth > 0) )
 
 	$first_login_link=0;
 
-	if ($LOGforce_change_password=='Y')
+	if ( ($LOGforce_change_password=='Y') and !( ($SSfirst_login_trigger=='Y') and ($ADD==999996) ) )
 		{
 		$ADD=999997;
 		$reports_only_user=1;
