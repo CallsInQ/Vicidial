@@ -56,12 +56,17 @@ a {
   border: 1px solid rgba(217, 231, 244, 0.95) !important;
   border-radius: 32px !important;
   box-shadow: var(--qa-shadow) !important;
+  height: auto !important;
+  left: auto !important;
   margin: 0 auto;
   max-width: 460px;
+  min-height: 0;
   overflow: hidden;
   padding: 38px 40px !important;
-  position: relative;
+  position: relative !important;
+  top: auto !important;
   width: min(460px, calc(100vw - 36px));
+  z-index: 1 !important;
 }
 
 #loginBox:before {
@@ -72,6 +77,7 @@ a {
   position: absolute;
   right: 36px;
   top: 0;
+  z-index: 0 !important;
 }
 
 #loginBox img[src*="qdialer-logo"] {
@@ -120,6 +126,21 @@ a {
   width: 100%;
 }
 
+#loginBox #inputs input,
+#loginBox #inputs #LogiNCamPaigns select {
+  background: #fff !important;
+  float: none !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 11px 13px !important;
+  width: 100% !important;
+}
+
+#loginBox h1:before,
+#loginBox h1:after {
+  display: none !important;
+}
+
 #loginBox input:focus,
 #loginBox select:focus,
 .cust_form:focus,
@@ -135,6 +156,8 @@ a {
 
 #LogiNReseT {
   display: inline-block;
+  float: none !important;
+  margin-right: 0 !important;
   margin-top: 8px;
 }
 
@@ -159,8 +182,10 @@ a {
   cursor: pointer;
   font-weight: 900 !important;
   letter-spacing: 0.01em;
+  margin-left: 0 !important;
   min-height: 48px;
   padding: 14px 24px !important;
+  width: 100% !important;
 }
 
 #instructions {
