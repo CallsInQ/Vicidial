@@ -604,6 +604,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
+<link rel="stylesheet" type="text/css" href="../qdialer/assets/css/qdialer.css" />
 ';
 echo "<!-- VERSION: $version     BUILD: $build -->\n";
 echo "<!-- BROWSER: $BROWSER_WIDTH x $BROWSER_HEIGHT     $JS_browser_width x $JS_browser_height -->\n";
@@ -815,7 +816,7 @@ else
 
 	}
 
-$login_script = "<title>Inktel | X Frontline - Login</title>\n" .
+$login_script = "<title>qDialer - Agent Login</title>\n" .
     "</head>\n" .
     "<body onresize=\"browser_dimensions();\" onload=\"browser_dimensions();\">\n";
 if ($hide_timeclock_link < 1)
@@ -833,7 +834,7 @@ $login_script .= "<table width=\"100%\"><tr><td></td>\n" .
     
     "<br /><br /><br /><center>\n" .
     "<div id=\"loginBox\" class=\"barStyle\">\n" .
-    "<img src=\"./images/InktelX-Frontline-Sponsored.png\" border=\"0\" alt=\"X Frontline\" />" .
+    "<img src=\"../qdialer/assets/img/qdialer-logo.png\" border=\"0\" alt=\"qDialer\" style=\"max-width:260px;height:auto;\" />" .
     "<h1>Log In</h1>\n" .
     
     "<fieldset id=\"inputs\">" .
@@ -849,7 +850,7 @@ $login_script .= "<table width=\"100%\"><tr><td></td>\n" .
     "</fieldset>" .
     
     "</div>" .
-    ##"<div id=\"footer\"><span><font size=\"1\"><br />Powered by Vicidial &nbsp; &nbsp; &nbsp; VERSION: $version &nbsp; &nbsp; &nbsp; BUILD: $build</font></span></div>" .
+    ##"<div id=\"footer\"><span><font size=\"1\"><br />Powered by qDialer &nbsp; &nbsp; &nbsp; VERSION: $version &nbsp; &nbsp; &nbsp; BUILD: $build</font></span></div>" .
     "</center>\n" .
     "</form>\n\n" .
     "</body>\n\n" .
@@ -1815,7 +1816,7 @@ else
 				}
 			echo "<!-- Phones balance selection: $phone_login|$pb_server_ip|$past_minutes_date|     |$pb_log -->\n";
 			}
-		echo "<title>X Frontline - Inktel</title>\n";
+		echo "<title>qDialer Agent Console</title>\n";
 		$stmt="SELECT extension,dialplan_number,voicemail_id,phone_ip,computer_ip,server_ip,login,pass,status,active,phone_type,fullname,company,picture,messages,old_messages,protocol,local_gmt,ASTmgrUSERNAME,ASTmgrSECRET,login_user,login_pass,login_campaign,park_on_extension,conf_on_extension,VICIDIAL_park_on_extension,VICIDIAL_park_on_filename,monitor_prefix,recording_exten,voicemail_exten,voicemail_dump_exten,ext_context,dtmf_send_extension,call_out_number_group,client_browser,install_directory,local_web_callerID_URL,VICIDIAL_web_URL,AGI_call_logging_enabled,user_switching_enabled,conferencing_enabled,admin_hangup_enabled,admin_hijack_enabled,admin_monitor_enabled,call_parking_enabled,updater_check_enabled,AFLogging_enabled,QUEUE_ACTION_enabled,CallerID_popup_enabled,voicemail_button_enabled,enable_fast_refresh,fast_refresh_rate,enable_persistant_mysql,auto_dial_next_number,VDstop_rec_after_each_call,DBX_server,DBX_database,DBX_user,DBX_pass,DBX_port,DBY_server,DBY_database,DBY_user,DBY_pass,DBY_port,outbound_cid,enable_sipsak_messages,email,template_id,conf_override,phone_context,phone_ring_timeout,conf_secret,is_webphone,use_external_server_ip,codecs_list,webphone_dialpad,phone_ring_timeout,on_hook_agent,webphone_auto_answer from phones where login='$phone_login' and pass='$phone_pass' and active = 'Y';";
 		if ($DB) {echo "|$stmt|\n";}
 		$rslt=mysql_query($stmt, $link);
@@ -12278,11 +12279,11 @@ $zi=2;
 
 <!-- Loading gif used to display upon login -->
 <span id="LoadingBox" width="<?php echo $JS_browser_width ?>px" height="<?php echo $JS_browser_height ?>px">
-    <img src="./images/loadingx.gif" alt="Loading X Frontline..." />
+    <img src="./images/loadingx.gif" alt="Loading qDialer..." />
 </span>
 
 <div id="x_toolbar" class="barStyle">
-    <img id="x_logo" src="./images/InktelX-Frontline-Sponsored.png" border="0" alt="X Frontline" />
+    <img id="x_logo" src="../qdialer/assets/img/qdialer-logo.png" border="0" alt="qDialer" />
     
     <div id="hiddenFields">
         <input type="hidden" name="extension" id="extension" />

@@ -585,3 +585,74 @@ html[xmlns] .clearfix { display: block; }
     filter: gray; /* IE5+ */
     /* -webkit-filter: grayscale(1); /* Webkit Nightlies & Google Chrome Canary */
 }
+/* qDialer white-label layer. Keep this in custom.css so core agent logic and
+   the upgrade-protected style.css file remain untouched. */
+body {
+    background:
+        radial-gradient(circle at 12% -10%, rgba(52,181,244,.24), transparent 420px),
+        linear-gradient(135deg, #f7fbff 0%, #edf7ff 50%, #ffffff 100%) !important;
+    color: #10172a;
+    font-family: "Trebuchet MS", "Segoe UI", Verdana, Arial, sans-serif;
+}
+
+#loginBox {
+    background: rgba(255,255,255,.92) !important;
+    border: 1px solid #d8e4f3 !important;
+    border-radius: 28px !important;
+    box-shadow: 0 22px 58px rgba(12,33,93,.16) !important;
+    max-width: 440px;
+    padding: 34px 38px !important;
+}
+
+#loginBox h1 {
+    color: #10172a !important;
+    font-size: 34px !important;
+    letter-spacing: -.05em;
+    line-height: 1;
+    margin: 20px 0 !important;
+}
+
+#loginBox input,
+#loginBox select {
+    border: 1px solid #d8e4f3 !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+    min-height: 42px;
+    padding: 10px 12px !important;
+}
+
+#loginBox #submit,
+.button.blue {
+    background: linear-gradient(135deg, #1237d8, #34b5f4) !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    color: #fff !important;
+    cursor: pointer;
+    font-weight: 800 !important;
+    padding: 13px 22px !important;
+}
+
+#x_logo {
+    height: auto !important;
+    max-height: 64px;
+    max-width: 220px;
+}
+
+#userStats,
+#notifications,
+#left .gcontent .boxy,
+#right span.action,
+.promptBox {
+    border-color: #d8e4f3 !important;
+    box-shadow: 0 12px 30px rgba(12,33,93,.08);
+}
+
+#left .gcontent .head {
+    background: linear-gradient(135deg, #08146d, #1237d8) !important;
+    border-color: #1237d8 !important;
+}
+
+a {
+    color: #1237d8;
+}

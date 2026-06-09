@@ -38,7 +38,7 @@ if($short_header)
 	{
 	?>
 	<TABLE CELLPADDING=0 CELLSPACING=0 BGCOLOR="#015B91"><TR>
-	<TD><IMG SRC="vicidial_admin_web_logo_small.gif" WIDTH=71 HEIGHT=22> &nbsp; </TD>
+	<TD><IMG SRC="../qdialer/assets/img/qdialer-logo-negative.png" WIDTH=92 ALT="qDialer"> &nbsp; </TD>
 	<?php if ($reports_only_user < 1) {
 		?>
 	<TD> &nbsp; <A HREF="admin.php" ALT="Users"><FONT FACE="ARIAL,HELVETICA" COLOR=WHITE SIZE=2><B>Users</B></A> &nbsp; </TD>
@@ -1013,17 +1013,19 @@ if ( ($ADD==3111) or ($ADD==2111) or ($ADD==2011) or ($ADD==4111) or ($ADD==5111
 	<?php
 	}
 echo "</script>\n";
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../qdialer/assets/css/qdialer.css\">\n";
 echo "</head>\n";
 if ( ($SSadmin_modify_refresh > 1) and (preg_match("/^3|^4/",$ADD)) )
 	{
-	echo "<BODY BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0 onLoad=\"modify_refresh_display();\">\n";
+	echo "<BODY class=\"qdialer-legacy qdialer-admin\" BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0 onLoad=\"modify_refresh_display();\">\n";
 	}
 else
 	{
-	echo "<BODY BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0>\n";
+	echo "<BODY class=\"qdialer-legacy qdialer-admin\" BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0>\n";
 	}
 	
 echo "<!-- INTERNATIONALIZATION-LINKS-PLACEHOLDER-VICIDIAL -->\n";
+echo "<div class=\"qd-admin-ribbon\"><a href=\"../qdialer/\"><img src=\"../qdialer/assets/img/qdialer-logo-negative.png\" alt=\"qDialer\"></a><div><a href=\"../qdialer/\">Live Dashboard</a><a href=\"../qdialer/reports/vendor-cost.php\">Vendor Cost</a><a href=\"../qdialer/reports/agent-productivity.php\">Agent Productivity</a><a href=\"../qdialer/setup/vendors.php\">Setup</a></div></div>\n";
 
 $stmt="SELECT admin_home_url,enable_tts_integration,callcard_enabled,custom_fields_enabled from system_settings;";
 $rslt=mysql_query($stmt, $link);
@@ -1039,7 +1041,7 @@ $SScustom_fields_enabled =	$row[3];
 <TABLE BGCOLOR=white cellpadding=0 cellspacing=0>
 <!-- BEGIN SIDEBAR NAVIGATION -->
 <TR><TD VALIGN=TOP WIDTH=170 BGCOLOR=#015B91 ALIGN=CENTER>
-<IMG SRC="./vicidial_admin_web_logo.gif" WIDTH=170 HEIGHT=45 ALT="VICIDIAL logo">
+<IMG SRC="../qdialer/assets/img/qdialer-logo-negative.png" WIDTH=150 ALT="qDialer">
 <B><FONT FACE="ARIAL,HELVETICA" COLOR=white>ADMINISTRATION</FONT></B><BR>
 	<TABLE CELLPADDING=2 CELLSPACING=0 BGCOLOR=#015B91 WIDTH=160>
 	<?php if ($reports_only_user < 1) {
