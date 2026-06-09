@@ -373,6 +373,8 @@ if ( ( ($ADD==34) or ($ADD==31) or ($ADD==49) ) and ($SUB==29) and ($LOGmodify_c
 
 	function openNewWindow(url) 
 		{
+		if (url.indexOf('ADD=99999#') > -1 && qdialerHelpShowFromUrl(url))
+			{return;}
 		window.open (url,"",'width=620,height=300,scrollbars=yes,menubar=yes,address=yes');
 		}
 	function scriptInsertField() 
@@ -749,7 +751,7 @@ if ( ($ADD==3511) or ($ADD==2511) or ($ADD==2611) or ($ADD==4511) or ($ADD==5511
 			new_content = new_content + '' + ingroup_list + "\n" + selected_value + '</select>';
 			new_content = new_content + ' &nbsp; Handle Method: <select size=1 name=IGhandle_method_' + option + ' id=IGhandle_method_' + option + '>';
 			new_content = new_content + '' + IGhandle_method_list + "\n" + '<option SELECTED>' + IGhandle_method + '</select>';
-			new_content = new_content + ' &nbsp; <a href="javascript:openNewWindow(\'admin.php?ADD=99999#vicidial_call_menu-ingroup_settings\')"><IMG SRC="help.gif" WIDTH=20 HEIGHT=20 BORDER=0 ALT="HELP" ALIGN=TOP></a>';
+			new_content = new_content + ' &nbsp; <a class="qdialer-help-link" href="admin.php?ADD=99999#vicidial_call_menu-ingroup_settings"><IMG SRC="help.gif" WIDTH=20 HEIGHT=20 BORDER=0 ALT="HELP" ALIGN=TOP></a>';
 			new_content = new_content + '<BR>Search Method: <select size=1 name=IGsearch_method_' + option + ' id=IGsearch_method_' + option + '>';
 			new_content = new_content + '' + IGsearch_method_list + "\n" + '<option SELECTED>' + IGsearch_method + '</select>';
 			new_content = new_content + ' &nbsp; List ID: <input type=text size=5 maxlength=14 name=IGlist_id_' + option + ' id=IGlist_id_' + option + ' value="' + IGlist_id + '">';
@@ -1012,6 +1014,254 @@ if ( ($ADD==3111) or ($ADD==2111) or ($ADD==2011) or ($ADD==4111) or ($ADD==5111
 
 	<?php
 	}
+	?>
+
+	var qdialerHelpHTML = '';
+	var qdialerHelpLoading = 0;
+	var qdialerHelpCallbacks = [];
+	var qdialerHelpCache = {};
+	var qdialerHelpActiveID = '';
+	var qdialerHelpHideTimer = '';
+
+	function qdialerHelpLinkFromEvent(target)
+		{
+		while (target && target.tagName)
+			{
+			if (target.tagName.toLowerCase() == 'a')
+				{
+				var href = target.getAttribute('href') || '';
+				if (target.className.indexOf('qdialer-help-link') > -1 || href.indexOf('ADD=99999#') > -1)
+					{return target;}
+				}
+			target = target.parentNode;
+			}
+		return null;
+		}
+
+	function qdialerHelpIdFromHref(href)
+		{
+		var hash_position = href.indexOf('#');
+		if (hash_position < 0)
+			{return '';}
+		return decodeURIComponent(href.substring(hash_position + 1));
+		}
+
+	function qdialerHelpEscapeRegex(value)
+		{
+		return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		}
+
+	function qdialerHelpCleanText(value)
+		{
+		return value.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '');
+		}
+
+	function qdialerHelpParse(help_id)
+		{
+		if (qdialerHelpCache[help_id])
+			{return qdialerHelpCache[help_id];}
+
+		var pattern = new RegExp('<a\\s+name=["\\\']?' + qdialerHelpEscapeRegex(help_id) + '["\\\']?[^>]*>([\\s\\S]*?)(?=<a\\s+name=|THE END|</td></tr></table>)', 'i');
+		var match = pattern.exec(qdialerHelpHTML);
+		var help = {title: 'Field Help', body: 'Field-level help was not found for this option.'};
+
+		if (match && match[1])
+			{
+			var holder = document.createElement('div');
+			holder.innerHTML = match[1];
+			var bolds = holder.getElementsByTagName('b');
+			var title = '';
+			if (bolds.length > 0)
+				{title = qdialerHelpCleanText(bolds[0].innerText || bolds[0].textContent || '').replace(/\s*-\s*$/, '');}
+			var body = qdialerHelpCleanText(holder.innerText || holder.textContent || '');
+			if (title.length > 0 && body.toLowerCase().indexOf(title.toLowerCase()) === 0)
+				{body = qdialerHelpCleanText(body.substring(title.length).replace(/^\s*-\s*/, ''));}
+			help = {title: title || 'Field Help', body: body || 'No additional help text is available for this field.'};
+			}
+
+		qdialerHelpCache[help_id] = help;
+		return help;
+		}
+
+	function qdialerHelpLoad(callback)
+		{
+		if (qdialerHelpHTML.length > 0)
+			{
+			callback();
+			return;
+			}
+		qdialerHelpCallbacks.push(callback);
+		if (qdialerHelpLoading > 0)
+			{return;}
+		qdialerHelpLoading = 1;
+
+		var request = new XMLHttpRequest();
+		request.open('GET', 'admin.php?ADD=99999', true);
+		request.onreadystatechange = function()
+			{
+			if (request.readyState == 4)
+				{
+				qdialerHelpLoading = 0;
+				if (request.status >= 200 && request.status < 400)
+					{qdialerHelpHTML = request.responseText;}
+				while (qdialerHelpCallbacks.length > 0)
+					{qdialerHelpCallbacks.shift()();}
+				}
+			};
+		request.send(null);
+		}
+
+	function qdialerHelpBox()
+		{
+		var box = document.getElementById('qdialer-field-help');
+		if (!box)
+			{
+			box = document.createElement('div');
+			box.id = 'qdialer-field-help';
+			box.innerHTML = '<div class="qdialer-field-help-head"><strong id="qdialer-field-help-title">Field Help</strong><button type="button" id="qdialer-field-help-close">[X]</button></div><div id="qdialer-field-help-body">Loading help...</div>';
+			document.body.appendChild(box);
+			document.getElementById('qdialer-field-help-close').onclick = function()
+				{qdialerHelpHide(0);};
+			box.onmouseover = function()
+				{if (qdialerHelpHideTimer) {clearTimeout(qdialerHelpHideTimer); qdialerHelpHideTimer = '';}};
+			box.onmouseout = function()
+				{qdialerHelpHide(250);};
+			}
+		return box;
+		}
+
+	function qdialerHelpPosition(anchor)
+		{
+		var box = qdialerHelpBox();
+		var rect = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : {left: 320, right: 320, top: 160};
+		var box_width = box.offsetWidth || 360;
+		var left = rect.right + 12;
+		var top = rect.top - 12;
+
+		if ((left + box_width + 18) > window.innerWidth)
+			{left = rect.left - box_width - 12;}
+		if (left < 12)
+			{left = 12;}
+		if (top < 12)
+			{top = 12;}
+
+		box.style.left = left + 'px';
+		box.style.top = top + 'px';
+		}
+
+	function qdialerHelpRender(help_id, anchor)
+		{
+		var box = qdialerHelpBox();
+		var title = document.getElementById('qdialer-field-help-title');
+		var body = document.getElementById('qdialer-field-help-body');
+		box.style.visibility = 'visible';
+		box.style.opacity = '1';
+		qdialerHelpPosition(anchor);
+		title.innerHTML = 'Field Help';
+		body.innerHTML = 'Loading help...';
+
+		qdialerHelpLoad(function()
+			{
+			if (qdialerHelpActiveID != help_id)
+				{return;}
+			var help = qdialerHelpParse(help_id);
+			title.innerHTML = '';
+			title.appendChild(document.createTextNode(help.title));
+			body.innerHTML = '';
+			body.appendChild(document.createTextNode(help.body));
+			qdialerHelpPosition(anchor);
+			});
+		}
+
+	function qdialerHelpShow(event, anchor)
+		{
+		if (qdialerHelpHideTimer)
+			{
+			clearTimeout(qdialerHelpHideTimer);
+			qdialerHelpHideTimer = '';
+			}
+		var href = anchor.getAttribute('href') || '';
+		var help_id = qdialerHelpIdFromHref(href);
+		if (help_id.length < 1)
+			{return;}
+		qdialerHelpActiveID = help_id;
+		qdialerHelpRender(help_id, anchor);
+		}
+
+	function qdialerHelpShowFromUrl(url)
+		{
+		var help_id = qdialerHelpIdFromHref(url);
+		if (help_id.length < 1)
+			{return false;}
+		qdialerHelpActiveID = help_id;
+		qdialerHelpRender(help_id, null);
+		return true;
+		}
+
+	function qdialerHelpHide(delay)
+		{
+		if (qdialerHelpHideTimer)
+			{clearTimeout(qdialerHelpHideTimer);}
+		qdialerHelpHideTimer = setTimeout(function()
+			{
+			var box = document.getElementById('qdialer-field-help');
+			if (box)
+				{
+				box.style.visibility = 'hidden';
+				box.style.opacity = '0';
+				}
+			qdialerHelpActiveID = '';
+			}, delay || 0);
+		}
+
+	function qdialerHelpWire()
+		{
+		document.addEventListener('mouseover', function(event)
+			{
+			var link = qdialerHelpLinkFromEvent(event.target);
+			if (link)
+				{qdialerHelpShow(event, link);}
+			}, true);
+		document.addEventListener('mouseout', function(event)
+			{
+			var link = qdialerHelpLinkFromEvent(event.target);
+			if (link)
+				{qdialerHelpHide(250);}
+			}, true);
+		document.addEventListener('click', function(event)
+			{
+			var link = qdialerHelpLinkFromEvent(event.target);
+			if (link)
+				{
+				event.preventDefault();
+				qdialerHelpShow(event, link);
+				return false;
+				}
+			}, true);
+		document.addEventListener('focus', function(event)
+			{
+			var link = qdialerHelpLinkFromEvent(event.target);
+			if (link)
+				{qdialerHelpShow(event, link);}
+			}, true);
+		document.addEventListener('blur', function(event)
+			{
+			var link = qdialerHelpLinkFromEvent(event.target);
+			if (link)
+				{qdialerHelpHide(0);}
+			}, true);
+		document.addEventListener('keydown', function(event)
+			{
+			if (event.keyCode == 27)
+				{qdialerHelpHide(0);}
+			}, true);
+		}
+
+	if (document.addEventListener)
+		{
+		document.addEventListener('DOMContentLoaded', qdialerHelpWire, false);
+		}
+	<?php
 echo "</script>\n";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../qdialer/assets/css/qdialer.css\">\n";
 echo "</head>\n";
