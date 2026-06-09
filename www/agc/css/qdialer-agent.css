@@ -70,6 +70,9 @@ a {
 }
 
 #loginBox:before {
+  border: 0 !important;
+  bottom: auto !important;
+  box-shadow: none !important;
   background: linear-gradient(90deg, var(--qa-navy), var(--qa-blue), var(--qa-cyan));
   content: "";
   height: 6px;
@@ -94,10 +97,14 @@ a {
 
 #loginBox h1 {
   color: var(--qa-ink) !important;
+  font-family: "Aptos Display", "Aptos", "Segoe UI", Arial, sans-serif !important;
   font-size: 38px !important;
+  font-weight: 900 !important;
   letter-spacing: -0.06em;
   line-height: 1;
   margin: 22px 0 20px !important;
+  text-shadow: none !important;
+  text-transform: none !important;
 }
 
 #loginBox fieldset {
