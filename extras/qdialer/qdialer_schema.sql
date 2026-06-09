@@ -1,6 +1,9 @@
 -- qDialer v1 agency cost and productivity schema.
 -- Import this into the same MySQL database VICIDIAL uses, usually `asterisk`.
 -- These tables are intentionally prefixed and separate from core VICIDIAL tables.
+--
+-- For light first-server/dev installs, import qdialer_first_server_seed.sql
+-- after this file to create the first VICIDIAL admin and qDialer OWNER role.
 
 CREATE TABLE IF NOT EXISTS qdialer_roles (
   role_id INT(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
