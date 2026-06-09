@@ -34,7 +34,7 @@ function qdialer_vendor_rows($begin_date, $end_date)
 	if (!$rslt)
 		{return qdialer_demo_vendor_rows();}
 	$rows = array();
-	while ($row = mysql_fetch_assoc($rslt))
+	while ($row = qdialer_fetch_assoc($rslt))
 		{$rows[] = qdialer_normalize_vendor_row($row);}
 	return $rows;
 	}
@@ -72,7 +72,7 @@ function qdialer_agent_rows($begin_date, $end_date)
 	if (!$rslt)
 		{return qdialer_demo_agent_rows();}
 	$rows = array();
-	while ($row = mysql_fetch_assoc($rslt))
+	while ($row = qdialer_fetch_assoc($rslt))
 		{
 		$calls = (int)$row['calls'];
 		$acq = (int)$row['acquisitions'];

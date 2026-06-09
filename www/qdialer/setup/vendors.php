@@ -68,7 +68,7 @@ function qdialer_vendor_options()
 	$out = '';
 	if ($rslt)
 		{
-		while ($row = mysql_fetch_assoc($rslt))
+		while ($row = qdialer_fetch_assoc($rslt))
 			{$out .= '<option value="' . qdialer_h($row['vendor_id']) . '">' . qdialer_h($row['vendor_name']) . '</option>';}
 		}
 	if (strlen($out) < 1)
