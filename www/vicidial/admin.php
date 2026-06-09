@@ -3515,6 +3515,11 @@ if ( ( (strlen($ADD)>4) && ($ADD < 99998) ) or ($ADD==3) or (($ADD>20) and ($ADD
 		$groups = explode(" ", $closer_campaigns);
 		}
 
+	if (!isset($groups) or !is_array($groups))
+		{$groups = array();}
+	if (!isset($XFERgroups) or !is_array($XFERgroups))
+		{$XFERgroups = array();}
+
 	$stmt="SELECT group_id,group_name from vicidial_inbound_groups order by group_id";
 #	$stmt="SELECT group_id,group_name from vicidial_inbound_groups where group_id NOT IN('AGENTDIRECT') order by group_id";
 	$rslt=mysql_query($stmt, $link);
