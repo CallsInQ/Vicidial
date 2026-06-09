@@ -1,16 +1,19 @@
 :root {
-  --qd-navy: #08146d;
-  --qd-blue: #1237d8;
-  --qd-cyan: #34b5f4;
-  --qd-sky: #eef8ff;
-  --qd-ink: #10172a;
-  --qd-muted: #65718a;
-  --qd-border: #d8e4f3;
+  --qd-navy: #07135f;
+  --qd-blue: #2258d8;
+  --qd-blue-2: #2b78e4;
+  --qd-cyan: #38bdf8;
+  --qd-aqua: #e8f8ff;
+  --qd-sky: #f2f9ff;
+  --qd-ink: #0f172a;
+  --qd-muted: #64748b;
+  --qd-border: #d9e7f4;
   --qd-card: #ffffff;
-  --qd-soft: #f6fbff;
+  --qd-soft: #f7fbff;
   --qd-warn: #fff7df;
-  --qd-good: #e8fbf3;
-  --qd-shadow: 0 20px 55px rgba(12, 33, 93, 0.12);
+  --qd-good: #e9fbf5;
+  --qd-shadow: 0 24px 70px rgba(12, 33, 93, 0.13);
+  --qd-shadow-soft: 0 14px 36px rgba(12, 33, 93, 0.08);
   --qd-radius-xl: 28px;
   --qd-radius-lg: 20px;
   --qd-radius-md: 14px;
@@ -25,38 +28,63 @@ body.qdialer-legacy {
   margin: 0;
   color: var(--qd-ink);
   background:
-    radial-gradient(circle at 10% -10%, rgba(52, 181, 244, 0.22), transparent 34rem),
-    linear-gradient(135deg, #f7fbff 0%, #edf7ff 52%, #ffffff 100%);
-  font-family: "Trebuchet MS", "Segoe UI", Verdana, Arial, sans-serif;
+    radial-gradient(circle at 7% 2%, rgba(56, 189, 248, 0.2), transparent 25rem),
+    radial-gradient(circle at 90% 12%, rgba(34, 88, 216, 0.13), transparent 29rem),
+    linear-gradient(135deg, #f8fbff 0%, #eef8ff 48%, #ffffff 100%);
+  font-family: "Aptos Display", "Aptos", "Segoe UI", "Trebuchet MS", Verdana, Arial, sans-serif;
+}
+
+body.qdialer-app:before {
+  background:
+    linear-gradient(rgba(34, 88, 216, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 88, 216, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 70%);
+  pointer-events: none;
+  position: fixed;
 }
 
 .qd-shell {
-  min-height: 100vh;
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-columns: 268px minmax(0, 1fr);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .qd-sidebar {
-  color: #fff;
-  padding: 28px 20px;
-  background:
-    linear-gradient(160deg, rgba(8, 20, 109, 0.96), rgba(18, 55, 216, 0.94)),
-    var(--qd-navy);
-  position: sticky;
-  top: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(244, 250, 255, 0.92));
+  border-right: 1px solid rgba(217, 231, 244, 0.9);
+  box-shadow: 12px 0 40px rgba(12, 33, 93, 0.06);
+  color: var(--qd-ink);
   height: 100vh;
   overflow: auto;
+  padding: 28px 20px;
+  position: sticky;
+  top: 0;
 }
 
 .qd-brand {
-  display: block;
-  margin: 4px 0 34px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.15), transparent 12rem),
+    #fff;
+  border: 1px solid var(--qd-border);
+  border-radius: 24px;
+  box-shadow: var(--qd-shadow-soft);
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 28px;
+  min-height: 96px;
+  padding: 18px 16px;
 }
 
 .qd-brand img {
   display: block;
-  max-width: 180px;
   height: auto;
+  max-width: 190px;
 }
 
 .qd-nav {
@@ -66,32 +94,38 @@ body.qdialer-legacy {
 
 .qd-nav a,
 .qd-legacy-links a {
+  border-radius: 16px;
+  color: #475569;
   display: block;
-  border-radius: 14px;
-  color: rgba(255, 255, 255, 0.82);
+  font-weight: 800;
+  letter-spacing: 0.01em;
   padding: 12px 14px;
   text-decoration: none;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
 }
 
 .qd-nav a:hover,
 .qd-nav a.is-active {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(135deg, rgba(34, 88, 216, 0.12), rgba(56, 189, 248, 0.16));
+  color: var(--qd-blue);
+  transform: translateX(2px);
+}
+
+.qd-nav a.is-active {
+  box-shadow: inset 4px 0 0 var(--qd-blue);
 }
 
 .qd-legacy-links {
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid var(--qd-border);
   margin-top: 28px;
   padding-top: 18px;
 }
 
 .qd-legacy-links span {
+  color: var(--qd-muted);
   display: block;
-  color: rgba(255, 255, 255, 0.58);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.14em;
   margin: 0 0 8px 14px;
   text-transform: uppercase;
@@ -138,9 +172,10 @@ body.qdialer-legacy {
 
 .qd-user-pill,
 .qd-pill {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.84);
   border: 1px solid var(--qd-border);
   border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(12, 33, 93, 0.06);
   color: var(--qd-muted);
   padding: 10px 14px;
   white-space: nowrap;
@@ -160,17 +195,29 @@ body.qdialer-legacy {
 
 .qd-hero {
   background:
-    radial-gradient(circle at 88% 18%, rgba(52, 181, 244, 0.3), transparent 20rem),
-    linear-gradient(135deg, #fff 0%, #f4fbff 48%, #e8f6ff 100%);
-  border: 1px solid rgba(216, 228, 243, 0.9);
+    radial-gradient(circle at 92% 16%, rgba(56, 189, 248, 0.22), transparent 20rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, #f6fbff 52%, #ebf7ff 100%);
+  border: 1px solid rgba(217, 231, 244, 0.95);
   border-radius: var(--qd-radius-xl);
   box-shadow: var(--qd-shadow);
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
   margin-bottom: 24px;
   overflow: hidden;
   padding: clamp(24px, 5vw, 48px);
+  position: relative;
+}
+
+.qd-hero:after {
+  background: linear-gradient(90deg, var(--qd-blue), var(--qd-cyan));
+  border-radius: 999px;
+  bottom: 0;
+  content: "";
+  height: 6px;
+  left: clamp(24px, 5vw, 48px);
+  position: absolute;
+  width: min(260px, 48%);
 }
 
 .qd-hero h2 {
@@ -191,18 +238,22 @@ body.qdialer-legacy {
 
 .qd-hero-mark {
   align-items: center;
-  background: linear-gradient(150deg, var(--qd-navy), var(--qd-blue) 56%, var(--qd-cyan));
+  background:
+    radial-gradient(circle at 28% 24%, rgba(56, 189, 248, 0.28), transparent 11rem),
+    linear-gradient(150deg, #ffffff 0%, #f4fbff 58%, #e8f8ff 100%);
+  border: 1px solid var(--qd-border);
   border-radius: 36px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 42px rgba(12, 33, 93, 0.1);
   display: flex;
   justify-content: center;
   min-height: 260px;
-  padding: 38px;
+  padding: 34px;
 }
 
 .qd-hero-mark img {
-  filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.18));
-  max-width: 220px;
-  width: 76%;
+  filter: drop-shadow(0 18px 24px rgba(12, 33, 93, 0.12));
+  max-width: 280px;
+  width: 88%;
 }
 
 .qd-grid {
@@ -219,10 +270,10 @@ body.qdialer-legacy {
 }
 
 .qd-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--qd-border);
   border-radius: var(--qd-radius-lg);
-  box-shadow: 0 14px 35px rgba(12, 33, 93, 0.08);
+  box-shadow: var(--qd-shadow-soft);
   padding: 22px;
 }
 
@@ -292,22 +343,28 @@ body.qdialer-legacy {
 .qd-button,
 button.qd-button,
 input.qd-button {
-  background: linear-gradient(135deg, var(--qd-blue), var(--qd-cyan));
+  background: linear-gradient(135deg, var(--qd-navy), var(--qd-blue) 55%, var(--qd-cyan));
   border: 0;
   border-radius: 999px;
+  box-shadow: 0 14px 28px rgba(34, 88, 216, 0.23);
   color: #fff;
   cursor: pointer;
   display: inline-flex;
-  font: 800 14px/1 "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+  font: 900 14px/1 "Aptos", "Segoe UI", "Trebuchet MS", Arial, sans-serif;
   gap: 8px;
   justify-content: center;
   padding: 13px 18px;
   text-decoration: none;
 }
 
+.qd-button:hover {
+  filter: saturate(1.08);
+}
+
 .qd-button-secondary {
   background: #fff;
   border: 1px solid var(--qd-border);
+  box-shadow: 0 10px 24px rgba(12, 33, 93, 0.06);
   color: var(--qd-blue);
 }
 
@@ -368,7 +425,7 @@ input.qd-button {
   border: 1px solid var(--qd-border);
   border-radius: 12px;
   color: var(--qd-ink);
-  font: 700 14px/1.3 "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+  font: 800 14px/1.3 "Aptos", "Segoe UI", "Trebuchet MS", Arial, sans-serif;
   min-height: 42px;
   padding: 10px 12px;
 }
@@ -392,13 +449,15 @@ input.qd-button {
 }
 
 .qd-recommendation {
-  background: linear-gradient(135deg, var(--qd-navy), var(--qd-blue));
+  background:
+    radial-gradient(circle at 88% 0%, rgba(56, 189, 248, 0.34), transparent 14rem),
+    linear-gradient(135deg, var(--qd-navy), #1231a4 58%, var(--qd-blue));
   color: #fff;
   position: relative;
 }
 
 .qd-recommendation p {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .qd-dismiss {
@@ -416,8 +475,10 @@ input.qd-button {
 
 .qd-admin-ribbon {
   align-items: center;
-  background: linear-gradient(135deg, var(--qd-navy), var(--qd-blue));
-  color: #fff;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--qd-border);
+  box-shadow: 0 12px 30px rgba(12, 33, 93, 0.08);
+  color: var(--qd-ink);
   display: flex;
   gap: 16px;
   justify-content: space-between;
@@ -425,15 +486,21 @@ input.qd-button {
 }
 
 .qd-admin-ribbon img {
-  height: 36px;
+  height: 42px;
   width: auto;
 }
 
 .qd-admin-ribbon a {
-  color: #fff;
-  font-weight: 800;
-  margin-left: 14px;
+  border-radius: 999px;
+  color: var(--qd-blue);
+  font-weight: 900;
+  margin-left: 10px;
+  padding: 8px 10px;
   text-decoration: none;
+}
+
+.qd-admin-ribbon a:hover {
+  background: var(--qd-aqua);
 }
 
 body.qdialer-legacy table {
@@ -457,6 +524,8 @@ body.qdialer-legacy textarea {
   }
 
   .qd-sidebar {
+    border-bottom: 1px solid var(--qd-border);
+    border-right: 0;
     height: auto;
     position: relative;
   }
@@ -480,7 +549,8 @@ body.qdialer-legacy textarea {
 
   .qd-topbar,
   .qd-section-head,
-  .qd-actions {
+  .qd-actions,
+  .qd-admin-ribbon {
     align-items: stretch;
     flex-direction: column;
   }
@@ -491,5 +561,9 @@ body.qdialer-legacy textarea {
 
   .qd-hero {
     padding: 24px;
+  }
+
+  .qd-hero-mark {
+    min-height: 190px;
   }
 }

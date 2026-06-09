@@ -18,7 +18,7 @@ qdialer_page_begin('Live Report & Action Dashboard', 'dashboard');
     </div>
   </div>
   <div class="qd-hero-mark">
-    <img src="<?php echo qdialer_h(QDIALER_BASE_URL); ?>/assets/img/qdialer-icon-negative.png" alt="">
+    <img src="<?php echo qdialer_h(QDIALER_BASE_URL); ?>/assets/img/qdialer-logo.png" alt="qDialer">
   </div>
 </section>
 

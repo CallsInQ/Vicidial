@@ -18,7 +18,7 @@ function qdialer_page_begin($title, $active)
 	echo "<div class=\"qd-shell\">\n";
 	echo "<aside class=\"qd-sidebar\">\n";
 	echo "<a class=\"qd-brand\" href=\"" . qdialer_h($base) . "/\">\n";
-	echo "<img src=\"" . qdialer_h($base) . "/assets/img/qdialer-logo-negative.png\" alt=\"qDialer\">\n";
+	echo "<img src=\"" . qdialer_h($base) . "/assets/img/qdialer-logo.png\" alt=\"qDialer\">\n";
 	echo "</a>\n";
 	echo "<nav class=\"qd-nav\" aria-label=\"qDialer navigation\">\n";
 	qdialer_nav_link('Dashboard', $base . '/', $active, 'dashboard');

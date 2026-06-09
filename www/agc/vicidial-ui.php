@@ -605,6 +605,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
 <link rel="stylesheet" type="text/css" href="../qdialer/assets/css/qdialer.css" />
+<link rel="stylesheet" type="text/css" href="css/qdialer-agent.css" />
 ';
 echo "<!-- VERSION: $version     BUILD: $build -->\n";
 echo "<!-- BROWSER: $BROWSER_WIDTH x $BROWSER_HEIGHT     $JS_browser_width x $JS_browser_height -->\n";
