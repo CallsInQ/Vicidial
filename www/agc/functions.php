@@ -1407,8 +1407,11 @@ function mysql_error_logging($NOW_TIME,$link,$mel,$stmt,$query_id,$user,$server_
 			{
 			$error = mysql_error($link);
 			$efp = fopen ("./vicidial_mysql_errors.txt", "a");
-			fwrite ($efp, "$NOW_TIME|vdc_db_query|$query_id|$errno|$error|$stmt|$user|$server_ip|$session_name|\n");
-			fclose($efp);
+			if ($efp)
+				{
+				fwrite ($efp, "$NOW_TIME|vdc_db_query|$query_id|$errno|$error|$stmt|$user|$server_ip|$session_name|\n");
+				fclose($efp);
+				}
 			}
 		}
 	$one_mysql_log=0;

@@ -9,7 +9,7 @@
 
 @require_once(dirname(dirname(__FILE__)) . '/inc/php_compat.php');
 
-if ( file_exists("/etc/astguiclient.conf") )
+if ( is_readable("/etc/astguiclient.conf") )
 	{
 	$DBCagc = file("/etc/astguiclient.conf");
 	foreach ($DBCagc as $DBCline) 

@@ -49,7 +49,7 @@ function qdialer_db_config()
 		'VARDB_pass' => '1234',
 		'VARDB_database' => 'asterisk'
 	);
-	if (file_exists('/etc/astguiclient.conf'))
+	if (is_readable('/etc/astguiclient.conf'))
 		{
 		$lines = file('/etc/astguiclient.conf');
 		foreach ($lines as $line)

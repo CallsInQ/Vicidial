@@ -128,6 +128,11 @@ function vicidial_compat_mysql_link($link=null)
 	return false;
 	}
 
+function vicidial_compat_mysql_result($result)
+	{
+	return (is_object($result) and ($result instanceof mysqli_result));
+	}
+
 function vicidial_compat_mysql_host($server)
 	{
 	$server = (string)$server;
@@ -209,38 +214,38 @@ if (!function_exists('mysql_unbuffered_query'))
 if (!function_exists('mysql_fetch_row'))
 	{
 	function mysql_fetch_row($result)
-		{return $result ? mysqli_fetch_row($result) : false;}
+		{return vicidial_compat_mysql_result($result) ? mysqli_fetch_row($result) : false;}
 	}
 
 if (!function_exists('mysql_fetch_assoc'))
 	{
 	function mysql_fetch_assoc($result)
-		{return $result ? mysqli_fetch_assoc($result) : false;}
+		{return vicidial_compat_mysql_result($result) ? mysqli_fetch_assoc($result) : false;}
 	}
 
 if (!function_exists('mysql_fetch_array'))
 	{
 	function mysql_fetch_array($result, $result_type=MYSQL_BOTH)
-		{return $result ? mysqli_fetch_array($result, $result_type) : false;}
+		{return vicidial_compat_mysql_result($result) ? mysqli_fetch_array($result, $result_type) : false;}
 	}
 
 if (!function_exists('mysql_num_rows'))
 	{
 	function mysql_num_rows($result)
-		{return $result ? mysqli_num_rows($result) : 0;}
+		{return vicidial_compat_mysql_result($result) ? mysqli_num_rows($result) : 0;}
 	}
 
 if (!function_exists('mysql_num_fields'))
 	{
 	function mysql_num_fields($result)
-		{return $result ? mysqli_num_fields($result) : 0;}
+		{return vicidial_compat_mysql_result($result) ? mysqli_num_fields($result) : 0;}
 	}
 
 if (!function_exists('mysql_field_name'))
 	{
 	function mysql_field_name($result, $field_offset)
 		{
-		if (!$result)
+		if (!vicidial_compat_mysql_result($result))
 			{return false;}
 		$field = mysqli_fetch_field_direct($result, (int)$field_offset);
 		return $field ? $field->name : false;
@@ -311,7 +316,7 @@ if (!function_exists('mysql_free_result'))
 	{
 	function mysql_free_result($result)
 		{
-		if (!$result)
+		if (!vicidial_compat_mysql_result($result))
 			{return false;}
 		mysqli_free_result($result);
 		return true;

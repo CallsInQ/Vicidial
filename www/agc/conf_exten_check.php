@@ -784,8 +784,11 @@ if ( ($mel > 0) or ($one_mysql_log > 0) )
 		{
 		$error = mysql_error($link);
 		$efp = fopen ("./vicidial_mysql_errors.txt", "a");
-		fwrite ($efp, "$NOW_TIME|conf_check  |$query_id|$errno|$error|$stmt|$user|$server_ip|$session_name|\n");
-		fclose($efp);
+		if ($efp)
+			{
+			fwrite ($efp, "$NOW_TIME|conf_check  |$query_id|$errno|$error|$stmt|$user|$server_ip|$session_name|\n");
+			fclose($efp);
+			}
 		}
 	}
 $one_mysql_log=0;
