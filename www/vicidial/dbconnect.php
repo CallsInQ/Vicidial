@@ -10,6 +10,8 @@
 # 100712-1430 - Added slave server option for connection
 #
 
+@require_once(dirname(dirname(__FILE__)) . '/inc/php_compat.php');
+
 if ( file_exists("/etc/astguiclient.conf") )
 	{
 	$DBCagc = file("/etc/astguiclient.conf");

@@ -6,6 +6,9 @@
 #
 # Copyright (C) 2010  Matt Florell <vicidial@gmail.com>    LICENSE: AGPLv2
 #
+
+@require_once(dirname(dirname(__FILE__)) . '/inc/php_compat.php');
+
 if ( file_exists("/etc/astguiclient.conf") )
 	{
 	$DBCagc = file("/etc/astguiclient.conf");
