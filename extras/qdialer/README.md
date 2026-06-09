@@ -10,6 +10,12 @@ mariadb asterisk < extras/qdialer/qdialer_schema.sql
 mariadb asterisk < extras/qdialer/qdialer_first_server_seed.sql
 ```
 
+On newer MariaDB builds, the legacy VICIDIAL schema/seed may need non-strict SQL mode because some upstream seed values exceed older column lengths:
+
+```sh
+mariadb --init-command="SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION'" asterisk < bin/MySQL_AST_CREATE_tables.sql
+```
+
 `qdialer_first_server_seed.sql` creates the familiar first VICIDIAL admin:
 
 ```text
