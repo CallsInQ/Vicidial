@@ -70,6 +70,8 @@ function qdialer_connect_mysqli()
 	{
 	if (!function_exists('mysqli_connect'))
 		{return false;}
+	if (function_exists('mysqli_report'))
+		{mysqli_report(MYSQLI_REPORT_OFF);}
 	$config = qdialer_db_config();
 	$port = (int)$config['VARDB_port'];
 	$link = @mysqli_connect($config['VARDB_server'], $config['VARDB_user'], $config['VARDB_pass'], $config['VARDB_database'], $port);
@@ -97,7 +99,10 @@ function qdialer_query($sql)
 		{return false;}
 	if (function_exists('mysql_query') and !isset($GLOBALS['qdialer_mysqli']))
 		{return @mysql_query($sql, $GLOBALS['link']);}
-	return @mysqli_query($GLOBALS['qdialer_mysqli'], $sql);
+	try
+		{return @mysqli_query($GLOBALS['qdialer_mysqli'], $sql);}
+	catch (Exception $e)
+		{return false;}
 	}
 
 function qdialer_fetch_assoc($rslt)

@@ -55,6 +55,8 @@ function qdialer_agent_rows($begin_date, $end_date)
 	$end = qdialer_escape($end_date . ' 23:59:59');
 	if (!qdialer_has_mysql())
 		{return qdialer_demo_agent_rows();}
+	if (!qdialer_table_exists('vicidial_log') or !qdialer_table_exists('vicidial_closer_log'))
+		{return qdialer_demo_agent_rows();}
 
 	$sql = "SELECT user,"
 		. " COUNT(*) calls,"
