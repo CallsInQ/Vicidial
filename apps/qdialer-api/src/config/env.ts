@@ -5,6 +5,7 @@ export const appConfigSchema = z.object({
   QDIALER_API_HOST: z.string().default("127.0.0.1"),
   QDIALER_API_PORT: z.coerce.number().int().positive().default(8787),
   QDIALER_MODE: z.enum(["mock", "live"]).default("mock"),
+  QDIALER_MIGRATIONS_DIR: z.string().default("db/qdialer-postgres"),
   DATABASE_URL: z.string().optional(),
   REDIS_URL: z.string().optional(),
   VICI_DB_READONLY_URL: z.string().optional(),

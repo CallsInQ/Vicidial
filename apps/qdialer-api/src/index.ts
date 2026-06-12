@@ -1,10 +1,7 @@
 import cors from "@fastify/cors";
 import Fastify from "fastify";
+import { closeAppContext, createAppContext } from "./app-context.js";
 import { config } from "./config/env.js";
-import { VicidialApiClient } from "./connectors/vicidial-api.js";
-import { VicidialReadonlyDb } from "./connectors/vicidial-db.js";
-import { createQdialerPool } from "./plugins/postgres.js";
-import { createRedisClient } from "./plugins/redis.js";
 import { dashboardRoutes } from "./routes/dashboard.js";
 import { healthRoutes } from "./routes/health.js";
 import { realtimeRoutes } from "./routes/realtime.js";
@@ -16,27 +13,26 @@ const app = Fastify({
   }
 });
 
-const qdialerPool = createQdialerPool(config);
-const redis = createRedisClient(config);
-const vicidialDb = new VicidialReadonlyDb(config);
-const vicidialApi = new VicidialApiClient(config);
-
-app.decorate("qdialer", {
-  qdialerPool,
-  redis,
-  vicidialDb,
-  vicidialApi
-});
+const context = createAppContext(config);
 
 await app.register(cors, {
   origin: true,
   credentials: true
 });
 
-await app.register(healthRoutes, { prefix: "/api/v1", config });
+await app.register(healthRoutes, { prefix: "/api/v1", config, context });
 await app.register(dashboardRoutes, { prefix: "/api/v1", config });
 await app.register(realtimeRoutes, { prefix: "/api/v1", config });
 await app.register(vendorRoutes, { prefix: "/api/v1", config });
+
+for (const signal of ["SIGINT", "SIGTERM"] as const) {
+  process.on(signal, async () => {
+    app.log.info({ signal }, "qDialer API shutting down");
+    await closeAppContext(context);
+    await app.close();
+    process.exit(0);
+  });
+}
 
 const address = await app.listen({
   host: config.QDIALER_API_HOST,
@@ -47,10 +43,10 @@ app.log.info(
   {
     address,
     mode: config.QDIALER_MODE,
-    hasPostgres: Boolean(qdialerPool),
-    hasRedis: Boolean(redis),
-    hasVicidialDb: vicidialDb.configured,
-    hasVicidialApi: vicidialApi.configured
+    hasPostgres: Boolean(context.qdialerPool),
+    hasRedis: Boolean(context.redis),
+    hasVicidialDb: context.vicidialDb.configured,
+    hasVicidialApi: context.vicidialApi.configured
   },
   "qDialer API started"
 );

@@ -1,10 +1,19 @@
 import type { AppConfig } from "../config/env.js";
+import type { DependencyHealth } from "@qdialer/shared";
 
 export class VicidialApiClient {
   constructor(private readonly config: AppConfig) {}
 
   get configured(): boolean {
     return Boolean(this.config.VICIDIAL_API_BASE_URL && this.config.VICIDIAL_API_USER && this.config.VICIDIAL_API_PASS);
+  }
+
+  health(): DependencyHealth {
+    if (!this.configured) {
+      return { configured: false, ok: false, detail: "VICIDIAL_API_BASE_URL/user/pass are not configured" };
+    }
+
+    return { configured: true, ok: true, detail: "Configured; active API calls are checked by action endpoints" };
   }
 
   async call<T>(functionName: string, params: Record<string, string | number | boolean> = {}): Promise<T> {

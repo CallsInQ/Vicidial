@@ -61,9 +61,21 @@ export type DashboardSnapshot = {
   liveAgents: LiveAgent[];
 };
 
+export type DependencyHealth = {
+  configured: boolean;
+  ok: boolean;
+  detail?: string;
+};
+
 export type HealthResponse = {
   ok: boolean;
   service: string;
   mode: "mock" | "live";
   generatedAt: string;
+  dependencies: {
+    postgres: DependencyHealth;
+    redis: DependencyHealth;
+    vicidialDb: DependencyHealth;
+    vicidialApi: DependencyHealth;
+  };
 };

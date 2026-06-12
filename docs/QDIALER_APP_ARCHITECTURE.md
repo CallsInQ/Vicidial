@@ -91,6 +91,24 @@ Phase 2:
 - Add Redis-backed report cache and SSE live updates.
 - Replace mock dashboard data with real metrics.
 
+## Current VPS Runtime
+
+The test VPS now runs:
+
+- Apache serving VICIdial/PHP and the built qDialer React app.
+- `qdialer-api.service` running Fastify on `127.0.0.1:8787`.
+- Apache proxy for `/api/v1/*` to Fastify.
+- PostgreSQL for qDialer-owned app data.
+- Redis for qDialer cache/realtime support.
+
+The qDialer API reads environment from:
+
+```text
+/etc/qdialer/qdialer-api.env
+```
+
+This file is root-only and should contain deployment secrets such as `DATABASE_URL`, `REDIS_URL`, and later VICIdial connector credentials.
+
 Phase 3:
 
 - Add setup flows for vendors, sources, status mapping, and permissions.

@@ -15,6 +15,8 @@
     "build:shared": "npm run build --workspace @qdialer/shared",
     "build:web": "npm run build --workspace @qdialer/web",
     "build:api": "npm run build --workspace @qdialer/api",
+    "migrate:api": "npm run migrate --workspace @qdialer/api",
+    "migrate:api:prod": "npm run migrate:prod --workspace @qdialer/api",
     "typecheck": "npm run typecheck --workspace @qdialer/shared && npm run typecheck --workspace @qdialer/api && npm run typecheck --workspace @qdialer/web",
     "lint": "npm run lint --workspace @qdialer/shared && npm run lint --workspace @qdialer/api && npm run lint --workspace @qdialer/web"
   },
