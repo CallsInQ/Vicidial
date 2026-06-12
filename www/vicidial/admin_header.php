@@ -1263,6 +1263,7 @@ if ( ($ADD==3111) or ($ADD==2111) or ($ADD==2011) or ($ADD==4111) or ($ADD==5111
 		}
 	<?php
 echo "</script>\n";
+echo "<link rel=\"icon\" type=\"image/png\" href=\"../qdialer/assets/img/qdialer-favicon.png\">\n";
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../qdialer/assets/css/qdialer.css\">\n";
 echo "</head>\n";
 if ( ($SSadmin_modify_refresh > 1) and (preg_match("/^3|^4/",$ADD)) )
@@ -1275,7 +1276,7 @@ else
 	}
 	
 echo "<!-- INTERNATIONALIZATION-LINKS-PLACEHOLDER-VICIDIAL -->\n";
-echo "<div class=\"qd-admin-ribbon\"><a href=\"../qdialer/\"><img src=\"../qdialer/assets/img/qdialer-logo.png\" alt=\"qDialer\"></a><div><a href=\"../qdialer/\">Live Dashboard</a><a href=\"../qdialer/reports/vendor-cost.php\">Vendor Cost</a><a href=\"../qdialer/reports/agent-productivity.php\">Agent Productivity</a><a href=\"../qdialer/setup/vendors.php\">Setup</a></div></div>\n";
+echo "<div class=\"qd-admin-ribbon\"><a href=\"../qdialer/\"><img src=\"../qdialer/assets/img/qdialer-logo.png\" alt=\"qDialer\"></a><div><a href=\"../qdialer/\">Dashboard</a><a href=\"admin.php?ADD=0\">Users</a><a href=\"realtime_report.php\">Live Agents</a><a href=\"admin_search_lead.php\">Lead Lookup</a><a href=\"recording_lookup.php\">Recording Lookup</a><a href=\"../qdialer/reports/vendor-cost.php\">Vendor Cost</a><a href=\"../qdialer/reports/agent-productivity.php\">Agent Productivity</a><a href=\"../qdialer/setup/vendors.php\">Setup</a></div></div>\n";
 
 $stmt="SELECT admin_home_url,enable_tts_integration,callcard_enabled,custom_fields_enabled from system_settings;";
 $rslt=mysql_query($stmt, $link);

@@ -36,19 +36,32 @@
 $STARTtime = date("U");
 $TODAYstart = date("H/i/s 00:00:00");
 
-$linkAST=mysql_connect("10.10.10.15", "cron", "1234");
-mysql_select_db("asterisk");
+require("dbconnect.php");
+$linkAST=$link;
 
-$PHP_AUTH_USER=$_SERVER['PHP_AUTH_USER'];
-$PHP_AUTH_PW=$_SERVER['PHP_AUTH_PW'];
-$PHP_SELF=$_SERVER['PHP_SELF'];
+$PHP_AUTH_USER=(isset($_SERVER['PHP_AUTH_USER'])) ? $_SERVER['PHP_AUTH_USER'] : '';
+$PHP_AUTH_PW=(isset($_SERVER['PHP_AUTH_PW'])) ? $_SERVER['PHP_AUTH_PW'] : '';
+$PHP_SELF=(isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : 'recording_lookup.php';
+$QUERY_recid='';
 if (isset($_GET["QUERY_recid"]))				{$QUERY_recid=$_GET["QUERY_recid"];}
 	elseif (isset($_POST["QUERY_recid"]))		{$QUERY_recid=$_POST["QUERY_recid"];}
 
 $web_server = '1.1.1.1';
 $US='_';
 
-  if( (eregi("VDC",$PHP_AUTH_USER)) or (eregi("VDC",$PHP_AUTH_PW)) )
+  $legacy_auth = ((eregi("VDC",$PHP_AUTH_USER)) or (eregi("VDC",$PHP_AUTH_PW)));
+  $auth=0;
+  if (!$legacy_auth)
+	{
+	$PHP_AUTH_USER_SQL=mysql_real_escape_string($PHP_AUTH_USER, $linkAST);
+	$PHP_AUTH_PW_SQL=mysql_real_escape_string($PHP_AUTH_PW, $linkAST);
+	$stmt="SELECT count(*) from vicidial_users where user='$PHP_AUTH_USER_SQL' and pass='$PHP_AUTH_PW_SQL' and user_level > 7 and active='Y';";
+	$rslt=mysql_query($stmt, $linkAST);
+	$row=mysql_fetch_row($rslt);
+	$auth=$row[0];
+	}
+
+  if( ($legacy_auth) or ($auth > 0) )
 	{
 #	$package='';
 	}
@@ -57,22 +70,27 @@ $US='_';
     Header("WWW-Authenticate: Basic realm=\"VICI-VERIF\"");
     Header("HTTP/1.0 401 Unauthorized");
     echo "Invalid Username/Password: |$PHP_AUTH_USER|$PHP_AUTH_PW|\n";
-    exit;
+	exit;
 	}
 
-		$fp = fopen ("/usr/local/apache2/htdocs/vicidial/auth_entries.txt", "a");
+		$fp = @fopen ("./auth_entries.txt", "a");
 		$date = date("r");
 		$ip = getenv("REMOTE_ADDR");
 		$browser = getenv("HTTP_USER_AGENT");
-		fwrite ($fp, "AUTH|VDC   |$date|$username|$passwd|$ip|$QUERY_recid|$browser|\n");
-		fclose($fp);
+		if ($fp)
+			{
+			fwrite ($fp, "AUTH|VDC   |$date|$PHP_AUTH_USER|$PHP_AUTH_PW|$ip|$QUERY_recid|$browser|\n");
+			fclose($fp);
+			}
 
 ?>
 <html>
 <head>
 <title>Recording ID Lookup: </title>
+<link rel="icon" type="image/png" href="/qdialer/assets/img/qdialer-favicon.png">
+<link rel="stylesheet" href="/qdialer/assets/css/qdialer.css">
 </head>
-<body bgcolor=white>
+<body class="qdialer-legacy" bgcolor=white>
 
 <?php 
 
@@ -91,7 +109,8 @@ $logs_to_print=0;
 echo "<B>searching for: $QUERY_recid</B>\n";
 echo "<PRE>\n";
 
-	$stmt="select recording_id,lead_id,user,filename,location,start_time,length_in_sec from recording_log where filename LIKE \"%$QUERY_recid%\" order by recording_id desc LIMIT 1;";
+	$QUERY_recid_SQL=mysql_real_escape_string($QUERY_recid, $linkAST);
+	$stmt="select recording_id,lead_id,user,filename,location,start_time,length_in_sec from recording_log where filename LIKE \"%$QUERY_recid_SQL%\" order by recording_id desc LIMIT 1;";
 	$rslt=mysql_query($stmt, $linkAST);
 	$logs_to_print = mysql_num_rows($rslt);
 #echo "|$stmt|";

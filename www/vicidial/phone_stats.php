@@ -95,8 +95,10 @@ $browser = getenv("HTTP_USER_AGENT");
 <html>
 <head>
 <title>VICIDIAL ADMIN: Phone Stats</title>
+<link rel="icon" type="image/png" href="../qdialer/assets/img/qdialer-favicon.png">
+<link rel="stylesheet" type="text/css" href="../qdialer/assets/css/qdialer.css">
 </head>
-<BODY BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0>
+<BODY class="qdialer-legacy qdialer-admin qdialer-standalone" BGCOLOR=white marginheight=0 marginwidth=0 leftmargin=0 topmargin=0>
 <CENTER>
 <TABLE WIDTH=620 BGCOLOR=#D9E6FE cellpadding=2 cellspacing=0><TR BGCOLOR=#015B91><TD ALIGN=LEFT><FONT FACE="ARIAL,HELVETICA" COLOR=WHITE SIZE=2><B> &nbsp; VICIDIAL ADMIN: Administration</TD><TD ALIGN=RIGHT><FONT FACE="ARIAL,HELVETICA" COLOR=WHITE SIZE=2><B><?php echo date("l F j, Y G:i:s A") ?> &nbsp; </TD></TR>
 <TR BGCOLOR=#F0F5FE><TD ALIGN=LEFT COLSPAN=2><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1><B> &nbsp; <a href="<?php echo $admin_page ?>?ADD=10000000000"><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1>LIST ALL PHONES</a> | <a href="<?php echo $admin_page ?>?ADD=11111111111"><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1>ADD A NEW PHONE</a> | <a href="<?php echo $admin_page ?>?ADD=551"><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1>SEARCH FOR A PHONE</a> | <a href="<?php echo $admin_page ?>?ADD=111111111111"><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1>ADD A SERVER</a> | <a href="<?php echo $admin_page ?>?ADD=100000000000"><FONT FACE="ARIAL,HELVETICA" COLOR=BLACK SIZE=1>LIST ALL SERVERS</a></TD></TR>

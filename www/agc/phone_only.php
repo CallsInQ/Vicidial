@@ -161,8 +161,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="icon" type="image/png" href="../qdialer/assets/img/qdialer-favicon.png" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/custom.css" />
+<link rel="stylesheet" type="text/css" href="../qdialer/assets/css/qdialer.css" />
+<link rel="stylesheet" type="text/css" href="css/qdialer-agent.css" />
 ';
 echo "<!-- VERSION: $version     BUILD: $build -->\n";
 echo "<!-- BROWSER: $BROWSER_WIDTH x $BROWSER_HEIGHT     $JS_browser_width x $JS_browser_height -->\n";
@@ -180,7 +183,7 @@ if ($relogin == 'YES')
 	{
 	echo "<title>Phone web client: Login</title>\n";
 	echo "</head>\n";
-    echo "<body bgcolor=\"white\">\n";
+    echo "<body class=\"qdialer-agent qdialer-legacy\" bgcolor=\"white\">\n";
 	if ($hide_timeclock_link < 1)
         {echo "<a href=\"./timeclock.php?referrer=agent&amp;pl=$phone_login&amp;pp=$phone_pass&amp;VD_login=$VD_login&amp;VD_pass=$VD_pass\"> Timeclock</a><br />\n";}
     echo "<table width=\"100%\"><tr><td></td>\n";
@@ -215,7 +218,7 @@ if ( (strlen($phone_login)<2) or (strlen($phone_pass)<2) )
 	{
 	echo "<title>Phone web client: Phone Login</title>\n";
 	echo "</head>\n";
-    echo "<body bgcolor=\"white\">\n";
+    echo "<body class=\"qdialer-agent qdialer-legacy\" bgcolor=\"white\">\n";
 	if ($hide_timeclock_link < 1)
         {echo "<a href=\"./timeclock.php?referrer=agent&amp;pl=$phone_login&amp;pp=$phone_pass&amp;VD_login=$VD_login&amp;VD_pass=$VD_pass\"> Timeclock</a><br />\n";}
     echo "<table width=100%><tr><td></td>\n";
@@ -310,7 +313,7 @@ else
 		{
 		echo "<title>Phone web client: Login</title>\n";
 		echo "</head>\n";
-        echo "<body bgcolor=\"white\">\n";
+        echo "<body class=\"qdialer-agent qdialer-legacy\" bgcolor=\"white\">\n";
 		if ($hide_timeclock_link < 1)
             {echo "<a href=\"./timeclock.php?referrer=agent&amp;pl=$phone_login&amp;pp=$phone_pass&amp;VD_login=$VD_login&amp;VD_pass=$VD_pass\"> Timeclock</a><br />\n";}
         echo "<table width=\"100%\"><tr><td></td>\n";
@@ -400,7 +403,7 @@ else
 		{
 		echo "<title>Phone web client: Phone Login Error</title>\n";
 		echo "</head>\n";
-        echo "<body bgcolor=\"white\">\n";
+        echo "<body class=\"qdialer-agent qdialer-legacy\" bgcolor=\"white\">\n";
 		if ($hide_timeclock_link < 1)
             {echo "<a href=\"./timeclock.php?referrer=agent&amp;pl=$phone_login&amp;pp=$phone_pass&amp;VD_login=$VD_login&amp;VD_pass=$VD_pass\"> Timeclock</a><br />\n";}
         echo "<table width=\"100%\"><tr><td></td>\n";
@@ -812,7 +815,7 @@ echo "</head>\n";
 
 $zi=2;
 
-echo "<body bgcolor=\"white\">\n";
+echo "<body class=\"qdialer-agent qdialer-legacy\" bgcolor=\"white\">\n";
 
 echo " Phone: $original_phone_login - $server_ip &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href=\"$PHP_SELF?relogin=YES&session_epoch=1234567890&session_id=&session_name=$session_name&VD_login=$VD_login&phone_login=$original_phone_login&phone_pass=$phone_pass&VD_pass=$VD_pass\">Logout</a><BR>\n";
 
