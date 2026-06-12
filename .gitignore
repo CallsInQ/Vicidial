@@ -1,1 +1,7 @@
 /nbproject/nbproject/private/
+node_modules/
+dist/
+.env
+.env.local
+*.tsbuildinfo
+work/

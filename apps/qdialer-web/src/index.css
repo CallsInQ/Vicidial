@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 211 100% 98%;
+    --foreground: 222 90% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 90% 9%;
+    --primary: 197 100% 49%;
+    --primary-foreground: 222 100% 8%;
+    --secondary: 215 38% 94%;
+    --secondary-foreground: 222 90% 9%;
+    --muted: 214 40% 95%;
+    --muted-foreground: 215 16% 44%;
+    --accent: 197 100% 94%;
+    --accent-foreground: 222 90% 9%;
+    --destructive: 0 74% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 38% 88%;
+    --input: 214 38% 88%;
+    --ring: 197 100% 49%;
+    --radius: 1.25rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background:
+      radial-gradient(circle at 6% 0%, rgb(0 176 248 / 18%), transparent 24rem),
+      radial-gradient(circle at 86% 6%, rgb(0 8 40 / 10%), transparent 28rem),
+      linear-gradient(135deg, #ffffff 0%, #f5faff 45%, #ffffff 100%);
+  }
+}
+
+@layer components {
+  .qd-shell-grid {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+}

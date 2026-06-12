@@ -1,0 +1,24 @@
+{
+  "name": "qdialer-prime",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @qdialer/web",
+    "dev:web": "npm run dev --workspace @qdialer/web",
+    "dev:api": "npm run dev --workspace @qdialer/api",
+    "build": "npm run build:shared && npm run build:api && npm run build:web",
+    "build:shared": "npm run build --workspace @qdialer/shared",
+    "build:web": "npm run build --workspace @qdialer/web",
+    "build:api": "npm run build --workspace @qdialer/api",
+    "typecheck": "npm run typecheck --workspace @qdialer/shared && npm run typecheck --workspace @qdialer/api && npm run typecheck --workspace @qdialer/web",
+    "lint": "npm run lint --workspace @qdialer/shared && npm run lint --workspace @qdialer/api && npm run lint --workspace @qdialer/web"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}
