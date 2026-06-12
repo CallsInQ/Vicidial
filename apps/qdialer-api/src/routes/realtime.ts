@@ -1,8 +1,14 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { AppConfig } from "../config/env.js";
-import { createMockDashboardSnapshot } from "../mock/snapshot.js";
+import type { QdialerAppContext } from "../app-context.js";
+import { createDashboardSnapshot } from "../services/dashboard-snapshot.js";
 
-export const realtimeRoutes: FastifyPluginAsync<{ config: AppConfig }> = async (app) => {
+type RealtimeRouteOptions = {
+  config: AppConfig;
+  context: QdialerAppContext;
+};
+
+export const realtimeRoutes: FastifyPluginAsync<RealtimeRouteOptions> = async (app, options) => {
   app.get("/realtime/events", async (request, reply) => {
     reply.hijack();
     reply.raw.writeHead(200, {
@@ -12,12 +18,17 @@ export const realtimeRoutes: FastifyPluginAsync<{ config: AppConfig }> = async (
       "X-Accel-Buffering": "no"
     });
 
-    const sendSnapshot = () => {
-      reply.raw.write(`event: snapshot\ndata: ${JSON.stringify(createMockDashboardSnapshot())}\n\n`);
+    const sendSnapshot = async () => {
+      const snapshot = await createDashboardSnapshot(options.context);
+      reply.raw.write(`event: snapshot\ndata: ${JSON.stringify(snapshot)}\n\n`);
     };
 
-    sendSnapshot();
-    const timer = setInterval(sendSnapshot, 5_000);
+    await sendSnapshot();
+    const timer = setInterval(() => {
+      sendSnapshot().catch((error: unknown) => {
+        app.log.warn({ error }, "Failed to send qDialer realtime snapshot");
+      });
+    }, 5_000);
 
     request.raw.on("close", () => {
       clearInterval(timer);

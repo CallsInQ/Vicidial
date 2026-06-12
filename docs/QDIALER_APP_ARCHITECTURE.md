@@ -100,6 +100,7 @@ The test VPS now runs:
 - Apache proxy for `/api/v1/*` to Fastify.
 - PostgreSQL for qDialer-owned app data.
 - Redis for qDialer cache/realtime support.
+- A read-only VICIdial DB connector for live/reporting data.
 
 The qDialer API reads environment from:
 

@@ -4,10 +4,10 @@ Last updated: 2026-06-12
 
 ## Overall Progress
 
-qDialer v1 is roughly **34% complete**.
+qDialer v1 is roughly **38% complete**.
 
 ```text
-[#################.................................] 34%
+[###################...............................] 38%
 ```
 
 This score is product-progress weighted, not just code volume. The foundation is real now, but the agency reporting value is still ahead of us.
@@ -17,7 +17,7 @@ This score is product-progress weighted, not just code volume. The foundation is
 | Phase | Status | Progress |
 | --- | --- | ---: |
 | Phase 1: White-label shell and deployed modern app | Mostly complete | 85% |
-| Phase 2: Roles, vendor setup, source mapping, status mapping | Started | 25% |
+| Phase 2: Roles, vendor setup, source mapping, status mapping | Started | 35% |
 | Phase 3: Vendor cost attribution engine, snapshots, corrections, audit | Foundation only | 10% |
 | Phase 4: Vendor Cost and Agent Productivity reports with real data | Mock UI only | 15% |
 | Phase 5: Recording review and recommendations | Concept/UI placeholder | 5% |
@@ -36,21 +36,24 @@ This score is product-progress weighted, not just code volume. The foundation is
 - Redis is installed and running for cache/realtime support.
 - Initial Postgres migration is applied.
 - API health reports dependency status for Postgres, Redis, VICIdial DB, and VICIdial API.
+- Read-only VICIdial database user is configured.
+- Dashboard and SSE snapshot endpoints now use real `vicidial_live_agents` data when available.
 
 ## Current State
 
 - API mode is still `mock`.
 - Postgres and Redis are healthy.
-- VICIdial read-only DB connector is not configured yet.
+- VICIdial read-only DB connector is configured and healthy.
 - VICIdial API connector is not configured yet.
+- Live agent counts now come from VICIdial.
 - Vendor Cost and Agent Productivity screens still use mock data.
 
 ## Next Progress Slice
 
-The next meaningful slice is to connect qDialer to live VICIdial data safely:
+The next meaningful slice is to turn source setup into real qDialer app data:
 
-1. Create a read-only VICIdial database user.
-2. Add `VICI_DB_READONLY_URL` to `/etc/qdialer/qdialer-api.env`.
-3. Update the dashboard API to use live agent status from `vicidial_live_agents`.
-4. Add qDialer vendor/source setup endpoints backed by Postgres.
-5. Replace mock Vendor Cost rows with saved vendor rules plus VICIdial call/lead data.
+1. Add qDialer vendor/source setup endpoints backed by Postgres.
+2. Add vendor source list/create/update UI in the React app.
+3. Add status mapping endpoints for acquisition/bad-lead categories.
+4. Replace mock Vendor Cost rows with saved vendor rules plus VICIdial call/lead data.
+5. Keep VICIdial API connector for audited write actions only.

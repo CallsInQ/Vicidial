@@ -48,7 +48,20 @@ export class VicidialReadonlyDb {
     const connection = await mysql.createConnection(this.config.VICI_DB_READONLY_URL);
     try {
       const [rows] = await connection.execute<VicidialLiveAgentRow[]>(
-        "SELECT user, full_name, status, campaign_id, calls_today, pause_code, server_ip FROM vicidial_live_agents ORDER BY user LIMIT 200"
+        `
+          SELECT
+            live.user,
+            COALESCE(users.full_name, live.user) AS full_name,
+            live.status,
+            live.campaign_id,
+            live.calls_today,
+            COALESCE(live.comments, '') AS pause_code,
+            live.server_ip
+          FROM vicidial_live_agents live
+          LEFT JOIN vicidial_users users ON users.user = live.user
+          ORDER BY live.user
+          LIMIT 200
+        `
       );
 
       return rows.map((row) => ({
