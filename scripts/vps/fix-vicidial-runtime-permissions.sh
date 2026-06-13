@@ -18,4 +18,8 @@ fi
 chown "${apache_user}:${apache_group}" "${auth_log}"
 chmod u+rw "${auth_log}"
 
+if git -C "${repo_root}" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  git -C "${repo_root}" update-index --skip-worktree www/vicidial/project_auth_entries.txt || true
+fi
+
 echo "VICIDIAL runtime permissions fixed for ${auth_log}"
