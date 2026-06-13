@@ -4,10 +4,10 @@ Last updated: 2026-06-13
 
 ## Overall Progress
 
-qDialer v1 is roughly **42% complete**.
+qDialer v1 is roughly **44% complete**.
 
 ```text
-[#####################.............................] 42%
+[######################............................] 44%
 ```
 
 This score is product-progress weighted, not just code volume. The foundation is real now, but the agency reporting value is still ahead of us.
@@ -16,7 +16,7 @@ This score is product-progress weighted, not just code volume. The foundation is
 
 | Phase | Status | Progress |
 | --- | --- | ---: |
-| Phase 1: White-label shell and deployed modern app | Mostly complete | 85% |
+| Phase 1: White-label shell and deployed modern app | Mostly complete | 90% |
 | Phase 2: Roles, vendor setup, source mapping, status mapping | In progress | 45% |
 | Phase 3: Vendor cost attribution engine, snapshots, corrections, audit | Foundation only | 10% |
 | Phase 4: Vendor Cost and Agent Productivity reports with real data | Early data wiring | 20% |
@@ -41,6 +41,8 @@ This score is product-progress weighted, not just code volume. The foundation is
 - Vendor/source cost rules are now backed by qDialer Postgres when configured.
 - qDialer React app includes a Lists & Sources setup card for creating and activating/deactivating vendor cost rules.
 - Dashboard Vendor Cost rows prefer saved vendor rules when available, while full attribution math remains upcoming.
+- React shell navigation now opens distinct functional pages instead of dumping every workflow onto one long dashboard.
+- Users, Live Agents, Lead Lookup, Recording Lookup, Numbers, In-Groups, Campaigns, Lists/Sources, Reports, Setup, and Advanced VICIDIAL all have dedicated qDialer destinations with working launch actions.
 
 ## Current State
 

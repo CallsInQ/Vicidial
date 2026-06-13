@@ -43,6 +43,12 @@
 
 @layer components {
   .qd-shell-grid {
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    .qd-shell-grid {
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
   }
 }

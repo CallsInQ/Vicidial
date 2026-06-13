@@ -1,9 +1,10 @@
 import { create } from "zustand";
+import type { NavigationItemId } from "@/data/navigation";
 
 type ShellState = {
-  activeNav: string;
+  activeNav: NavigationItemId;
   commandOpen: boolean;
-  setActiveNav: (activeNav: string) => void;
+  setActiveNav: (activeNav: NavigationItemId) => void;
   setCommandOpen: (commandOpen: boolean) => void;
 };
 

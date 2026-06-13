@@ -7,6 +7,7 @@ import { useShellStore } from "@/stores/use-shell-store";
 export function CommandMenu() {
   const open = useShellStore((state) => state.commandOpen);
   const setOpen = useShellStore((state) => state.setCommandOpen);
+  const setActiveNav = useShellStore((state) => state.setActiveNav);
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-50">
@@ -24,7 +25,10 @@ export function CommandMenu() {
                 key={item.id}
                 href={item.href}
                 className="flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold hover:bg-accent"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setActiveNav(item.id);
+                  setOpen(false);
+                }}
               >
                 <item.icon className="text-primary" data-icon="inline-start" />
                 {item.label}
