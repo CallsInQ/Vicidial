@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { useShellStore } from "@/stores/use-shell-store";
 
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const assetBase = import.meta.env.BASE_URL;
 
 const vendorColumns: ColumnDef<VendorCostRow>[] = [
   {
@@ -95,7 +96,7 @@ export function App() {
       <div className="grid min-h-screen qd-shell-grid">
         <aside className="sticky top-0 hidden h-screen overflow-y-auto border-r border-brand-cyan/20 bg-brand-navy p-5 text-slate-200 shadow-2xl lg:block">
           <a className="mb-6 flex rounded-[1.5rem] border border-brand-cyan/20 bg-white/5 p-4" href="#dashboard">
-            <img src="/qdialer-logo.png" alt="qDialer" className="h-auto w-44" />
+            <img src={`${assetBase}qdialer-logo.png`} alt="qDialer" className="h-auto w-44" />
           </a>
           <nav className="flex flex-col gap-1">
             {navigationItems.map((item) => (
