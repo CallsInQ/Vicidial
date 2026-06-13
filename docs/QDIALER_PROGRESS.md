@@ -42,7 +42,15 @@ This score is product-progress weighted, not just code volume. The foundation is
 - qDialer React app includes a Lists & Sources setup card for creating and activating/deactivating vendor cost rules.
 - Dashboard Vendor Cost rows prefer saved vendor rules when available, while full attribution math remains upcoming.
 - React shell navigation now opens distinct functional pages instead of dumping every workflow onto one long dashboard.
-- Users, Live Agents, Lead Lookup, Recording Lookup, Numbers, In-Groups, Campaigns, Lists/Sources, Reports, Setup, and Advanced VICIDIAL all have dedicated qDialer destinations with working launch actions.
+- Users, Live Agents, Lead Lookup, Recording Lookup, Numbers, In-Groups, Campaigns, Lists/Sources, Reports, Setup, and Advanced Admin all have dedicated qDialer destinations with working launch actions.
+- Sidebar order has been aligned to the approved manager workflow: Command Center, Live Agents, Reports, Lists & Sources, In-Groups, Numbers, Campaigns, Vendor Costs, Lead Lookup, Recordings, Users, Setup, Advanced Admin.
+
+## Inventory Checkpoint
+
+- Styling direction is approved: dark navy shell, cyan accents, rounded cards, hover-lift quick launch cards, and current iconography.
+- Full qDialer wordmark is the primary logo; the square qDialer icon is the favicon/app icon.
+- Legacy VICIDIAL links are intentionally marked with gray context badges such as Legacy, Live, Lookup, QA, Telephony, Inbound, Dialing, Sources, Reports, and Advanced.
+- Unauthenticated legacy launch checks return HTTP 401, confirming protected pages exist rather than 404/500 missing routes.
 
 ## Current State
 

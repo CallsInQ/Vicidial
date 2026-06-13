@@ -32,7 +32,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { CommandMenu } from "@/components/command-menu";
 import { DataTable } from "@/components/data-table";
 import { VendorRuleSetup } from "@/components/vendor-rule-setup";
-import { navigationItems, type NavigationItemId } from "@/data/navigation";
+import { navigationItems, pageIds, type NavigationItemId } from "@/data/navigation";
 import { fetchDashboardSnapshot, fetchHealth } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useShellStore } from "@/stores/use-shell-store";
@@ -63,7 +63,7 @@ type PageProps = {
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 const assetBase = import.meta.env.BASE_URL;
 const logoSrc = `${assetBase}qdialer-logo.png`;
-const navIds = new Set<string>(navigationItems.map((item) => item.id));
+const navIds = new Set<string>(pageIds);
 
 const pageMeta = {
   dashboard: {
@@ -113,7 +113,7 @@ const pageMeta = {
   },
   vendors: {
     eyebrow: "Agency reporting",
-    title: "Vendor Cost",
+    title: "Vendor Costs",
     description: "A dedicated page for vendor spend, CPA/CPL/duration rules, and upcoming billable call attribution."
   },
   agents: {
@@ -133,7 +133,7 @@ const pageMeta = {
   },
   advanced: {
     eyebrow: "Admin fallback",
-    title: "Advanced VICIDIAL",
+    title: "Advanced Admin",
     description: "Clearly marked access to the legacy engine for advanced settings qDialer has not rebuilt yet."
   }
 } satisfies Record<NavigationItemId, PageMeta>;
@@ -471,7 +471,7 @@ function PageHero({ meta, setCommandOpen }: { meta: PageMeta; setCommandOpen: (c
         </Button>
         <Button asChild>
           <a href={legacyLinks.admin.href}>
-            Advanced VICI
+            Advanced Admin
             <ArrowUpRight data-icon="inline-end" />
           </a>
         </Button>
@@ -493,9 +493,9 @@ function renderPage(activeNav: NavigationItemId, props: PageProps) {
     case "recordings":
       return <RecordingsPage />;
     case "numbers":
-      return <UtilityPage links={[legacyLinks.numbers, legacyLinks.admin]} steps={["Open phone/number admin.", "Confirm carrier and server routing in advanced VICI if needed.", "Use qDialer setup notes to keep client deployments consistent."]} />;
+      return <UtilityPage links={[legacyLinks.numbers, legacyLinks.admin]} steps={["Open phone/number admin.", "Confirm carrier and server routing in Advanced Admin if needed.", "Use qDialer setup notes to keep client deployments consistent."]} />;
     case "ingroups":
-      return <UtilityPage links={[legacyLinks.ingroups, legacyLinks.liveAgents]} steps={["Manage inbound queues in VICIDIAL.", "Map billable vendor duration rules in Lists & Sources.", "Use Vendor Cost to see attribution once call math is wired."]} />;
+      return <UtilityPage links={[legacyLinks.ingroups, legacyLinks.liveAgents]} steps={["Manage inbound queues in VICIDIAL.", "Map billable vendor duration rules in Lists & Sources.", "Use Vendor Costs to see attribution once call math is wired."]} />;
     case "campaigns":
       return <UtilityPage links={[legacyLinks.campaigns, legacyLinks.reports]} steps={["Configure campaign behavior in VICIDIAL.", "Verify active lists and statuses.", "Use qDialer reporting for manager-facing decisions."]} />;
     case "sources":
@@ -509,7 +509,7 @@ function renderPage(activeNav: NavigationItemId, props: PageProps) {
     case "setup":
       return <SetupPage health={props.health} />;
     case "advanced":
-      return <AdvancedViciPage />;
+      return <AdvancedAdminPage />;
     default:
       return <DashboardPage {...props} />;
   }
@@ -537,7 +537,7 @@ function DashboardPage({ snapshot }: PageProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3 md:grid-cols-3">
-            <DarkMiniCard icon={WalletCards} title="Vendor Cost" text="Saved rules are live; attribution math is next." />
+            <DarkMiniCard icon={WalletCards} title="Vendor Costs" text="Saved rules are live; attribution math is next." />
             <DarkMiniCard icon={Users} title="Agent Productivity" text="Leaderboard page split is ready for real joins." />
             <DarkMiniCard icon={ShieldCheck} title="VICI Safe" text="Advanced tools remain available without hiding them." />
           </CardContent>
@@ -740,7 +740,7 @@ function ReportsPage({ snapshot }: PageProps) {
   return (
     <div className="grid gap-6">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <ReportCard title="Vendor Cost" text="CPA, CPL, duration billing, bad lead outcomes." href="#/vendors" icon={WalletCards} />
+        <ReportCard title="Vendor Costs" text="CPA, CPL, duration billing, bad lead outcomes." href="#/vendors" icon={WalletCards} />
         <ReportCard title="Agent Productivity" text="Calls, close rate, talk minutes, minutes per acquisition." href="#/agents" icon={Users} />
         <ReportCard title="Live Agents" text="Current floor state and classic realtime launch." href="#/live" icon={RadioTower} />
         <ReportCard title="Classic VICI Reports" text="Open the full legacy reports library." href={legacyLinks.reports.href} icon={BarChart3} />
@@ -785,12 +785,12 @@ function SetupPage({ health }: { health?: HealthResponse }) {
   );
 }
 
-function AdvancedViciPage() {
+function AdvancedAdminPage() {
   return (
     <div className="grid gap-6">
       <Card className="bg-white/[0.92]">
         <CardHeader>
-          <CardTitle>Advanced VICIDIAL Launchpad</CardTitle>
+          <CardTitle>Advanced Admin Launchpad</CardTitle>
           <CardDescription>These links open legacy VICIDIAL pages intentionally. qDialer keeps them visible, not hidden.</CardDescription>
         </CardHeader>
         <CardContent>
