@@ -23,7 +23,6 @@ import { useShellStore } from "@/stores/use-shell-store";
 
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 const assetBase = import.meta.env.BASE_URL;
-const logoSrc = `${assetBase}qdialer-logo.png`;
 const iconSrc = `${assetBase}qdialer-favicon.png`;
 
 const vendorColumns: ColumnDef<VendorCostRow>[] = [
@@ -125,8 +124,12 @@ export function App() {
         <main className="min-w-0 p-4 sm:p-6 lg:p-8">
           <header className="mb-6 flex flex-col gap-5 overflow-hidden rounded-[1.75rem] border border-brand-cyan/20 bg-brand-navy p-5 text-white shadow-glow backdrop-blur md:flex-row md:items-center md:justify-between">
             <div>
-              <div className="mb-4 inline-flex rounded-[1.25rem] border border-white/10 bg-white/5 p-2">
-                <img src={logoSrc} alt="qDialer" className="h-14 w-auto max-w-[18rem] object-contain" />
+              <div className="mb-4 inline-flex items-center gap-3 rounded-[1.25rem] border border-white/10 bg-white/5 p-2 pr-5">
+                <img src={iconSrc} alt="" className="h-12 w-12 rounded-2xl border border-brand-cyan/40 shadow-lg shadow-brand-cyan/15" />
+                <span className="flex flex-col leading-tight">
+                  <span className="text-xl font-black tracking-tight text-white">qDialer</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-cyan">Command Center</span>
+                </span>
               </div>
               <p className="text-sm font-semibold text-brand-cyan">qDialer Command Center</p>
               <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">Agency decisions without the VICI maze.</h1>
