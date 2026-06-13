@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CommandMenu } from "@/components/command-menu";
 import { DataTable } from "@/components/data-table";
+import { VendorRuleSetup } from "@/components/vendor-rule-setup";
 import { navigationItems } from "@/data/navigation";
 import { fetchDashboardSnapshot } from "@/lib/api";
 import { cn } from "@/lib/utils";
@@ -162,6 +163,10 @@ export function App() {
                 </CardHeader>
               </Card>
             ))}
+          </section>
+
+          <section className="mt-6">
+            <VendorRuleSetup />
           </section>
 
           <section className="mt-6 grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">

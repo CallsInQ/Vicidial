@@ -32,6 +32,9 @@ export type VendorCostRule = {
   active: boolean;
 };
 
+export type VendorCostRuleInput = Omit<VendorCostRule, "id">;
+export type VendorCostRulePatch = Partial<VendorCostRuleInput>;
+
 export type AgentProductivityRow = {
   user: string;
   fullName: string;

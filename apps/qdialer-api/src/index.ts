@@ -23,7 +23,7 @@ await app.register(cors, {
 await app.register(healthRoutes, { prefix: "/api/v1", config, context });
 await app.register(dashboardRoutes, { prefix: "/api/v1", config, context });
 await app.register(realtimeRoutes, { prefix: "/api/v1", config, context });
-await app.register(vendorRoutes, { prefix: "/api/v1", config });
+await app.register(vendorRoutes, { prefix: "/api/v1", config, context });
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
   process.on(signal, async () => {

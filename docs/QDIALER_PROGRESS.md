@@ -1,13 +1,13 @@
 # qDialer Progress Tracker
 
-Last updated: 2026-06-12
+Last updated: 2026-06-13
 
 ## Overall Progress
 
-qDialer v1 is roughly **38% complete**.
+qDialer v1 is roughly **42% complete**.
 
 ```text
-[###################...............................] 38%
+[#####################.............................] 42%
 ```
 
 This score is product-progress weighted, not just code volume. The foundation is real now, but the agency reporting value is still ahead of us.
@@ -17,9 +17,9 @@ This score is product-progress weighted, not just code volume. The foundation is
 | Phase | Status | Progress |
 | --- | --- | ---: |
 | Phase 1: White-label shell and deployed modern app | Mostly complete | 85% |
-| Phase 2: Roles, vendor setup, source mapping, status mapping | Started | 35% |
+| Phase 2: Roles, vendor setup, source mapping, status mapping | In progress | 45% |
 | Phase 3: Vendor cost attribution engine, snapshots, corrections, audit | Foundation only | 10% |
-| Phase 4: Vendor Cost and Agent Productivity reports with real data | Mock UI only | 15% |
+| Phase 4: Vendor Cost and Agent Productivity reports with real data | Early data wiring | 20% |
 | Phase 5: Recording review and recommendations | Concept/UI placeholder | 5% |
 
 ## Completed
@@ -38,6 +38,9 @@ This score is product-progress weighted, not just code volume. The foundation is
 - API health reports dependency status for Postgres, Redis, VICIdial DB, and VICIdial API.
 - Read-only VICIdial database user is configured.
 - Dashboard and SSE snapshot endpoints now use real `vicidial_live_agents` data when available.
+- Vendor/source cost rules are now backed by qDialer Postgres when configured.
+- qDialer React app includes a Lists & Sources setup card for creating and activating/deactivating vendor cost rules.
+- Dashboard Vendor Cost rows prefer saved vendor rules when available, while full attribution math remains upcoming.
 
 ## Current State
 
@@ -46,14 +49,15 @@ This score is product-progress weighted, not just code volume. The foundation is
 - VICIdial read-only DB connector is configured and healthy.
 - VICIdial API connector is not configured yet.
 - Live agent counts now come from VICIdial.
-- Vendor Cost and Agent Productivity screens still use mock data.
+- Vendor Cost rows can now show saved vendor setup rules, but attribution metrics are not calculated yet.
+- Agent Productivity screens still use mock data.
 
 ## Next Progress Slice
 
-The next meaningful slice is to turn source setup into real qDialer app data:
+The next meaningful slice is to turn saved setup rules into calculated reporting:
 
-1. Add qDialer vendor/source setup endpoints backed by Postgres.
-2. Add vendor source list/create/update UI in the React app.
-3. Add status mapping endpoints for acquisition/bad-lead categories.
-4. Replace mock Vendor Cost rows with saved vendor rules plus VICIdial call/lead data.
+1. Add status mapping endpoints for acquisition/bad-lead categories.
+2. Join saved vendor rules against VICIdial call/lead data for billable counts, spend, and Vendor CPA.
+3. Add duration clock selection per vendor/source, defaulting to agent-connected talk time.
+4. Add audit events for vendor rule changes and later corrections.
 5. Keep VICIdial API connector for audited write actions only.
