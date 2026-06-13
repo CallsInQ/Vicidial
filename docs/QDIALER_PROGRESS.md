@@ -51,6 +51,7 @@ This score is product-progress weighted, not just code volume. The foundation is
 - Full qDialer wordmark is the primary logo; the square qDialer icon is the favicon/app icon.
 - Legacy VICIDIAL links are intentionally marked with gray context badges such as Legacy, Live, Lookup, QA, Telephony, Inbound, Dialing, Sources, Reports, and Advanced.
 - Unauthenticated legacy launch checks return HTTP 401, confirming protected pages exist rather than 404/500 missing routes.
+- VICIDIAL admin access requires `www/vicidial/project_auth_entries.txt` to be writable by Apache/PHP; use `scripts/vps/fix-vicidial-runtime-permissions.sh` after fresh VPS deploys.
 
 ## Current State
 
