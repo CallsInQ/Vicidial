@@ -49,8 +49,13 @@ function updateDemoRule(id: string, patch: VendorCostRulePatch): VendorCostRule 
     return null;
   }
 
-  const updated = {
-    ...demoRules[index],
+  const existing = demoRules[index];
+  if (!existing) {
+    return null;
+  }
+
+  const updated: VendorCostRule = {
+    ...existing,
     ...patch
   };
 
