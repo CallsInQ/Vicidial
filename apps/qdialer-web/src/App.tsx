@@ -291,7 +291,7 @@ function readHashNav(): NavigationItemId {
 
 function csvEscape(value: CsvRow[string]): string {
   const text = value === null || value === undefined ? "" : String(value);
-  return `"${text.replaceAll('"', '""')}"`;
+  return `"${text.replace(/"/g, '""')}"`;
 }
 
 function downloadCsv(filename: string, rows: CsvRow[]) {
